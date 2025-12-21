@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <rect id="path-1" x="0" y="0" width="52" height="52"></rect>
+    </defs>
+    <g id="freThree" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <g id="Rectangle"></g>
+        <path d="M16,7 L31.5147186,7 C33.1060176,7 34.632141,7.63214104 35.7573593,8.75735931 L43.2426407,16.2426407 C44.367859,17.367859 45,18.8939824 45,20.4852814 L45,43 C45,44.6568542 43.6568542,46 42,46 L16,46 C14.3431458,46 13,44.6568542 13,43 L13,10 C13,8.34314575 14.3431458,7 16,7 Z" id="Rectangle" fill="#B1E8FA"></path>
+        <rect id="Rectangle_47560" fill="#00B7F3" fill-rule="nonzero" transform="translate(14.336851, 31.515981) rotate(-22.000000) translate(-14.336851, -31.515981) " x="6.33285146" y="25.2904815" width="16.008" height="12.451" rx="2"></rect>
+        <rect id="Rectangle" transform="translate(11.671062, 24.919256) rotate(-22.000000) translate(-11.671062, -24.919256) " x="7.22456195" y="18.6937556" width="8.893" height="12.451" rx="4"></rect>
+        <rect id="Rectangle" stroke="#00B7F3" stroke-width="2.5" transform="translate(11.671062, 24.919256) rotate(-22.000000) translate(-11.671062, -24.919256) " x="8.47456195" y="19.9437556" width="6.393" height="9.951" rx="2.75"></rect>
+        <path d="M35.4541378,8.4971659 L43.6165202,16.6527903 L37.5613351,16.6527903 C35.9053351,16.6517903 35.4541378,16.6277224 35.4541378,14.9737224 L35.4541378,8.4971659 Z" id="Path_38995" fill="#31B4ED" fill-rule="nonzero"></path>
+    </g>
+</svg>

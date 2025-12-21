@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="48" height="48" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="0.003" x2="0.5" y2="0.983" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#c8c6c4" stop-opacity="0"/>
+      <stop offset="0.75" stop-color="#c4c1bf" stop-opacity="0.698"/>
+      <stop offset="1" stop-color="#bebbb8" stop-opacity="0.898"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" y1="0.029" x2="0.5" y2="0.639" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#b3b0ad" stop-opacity="0.502"/>
+      <stop offset="1" stop-color="#a19f9d" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.5" y1="-0.045" x2="0.5" y2="0.975" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#979593" stop-opacity="0"/>
+      <stop offset="1" stop-color="#797775"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="-0.16" y1="0.503" y2="0.497" xlink:href="#linear-gradient-3"/>
+    <linearGradient id="linear-gradient-5" x1="-0.035" y1="0.5" x2="0.94" y2="0.5" xlink:href="#linear-gradient-3"/>
+    <linearGradient id="linear-gradient-6" x1="0.97" y1="0.503" x2="0.24" y2="0.503" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#b3b0ad" stop-opacity="0.251"/>
+      <stop offset="0.32" stop-color="#adaaa7" stop-opacity="0.188"/>
+      <stop offset="1" stop-color="#a19f9d" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-7" x1="0.5" y1="0.363" x2="0.5" y2="1.003" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#c8c6c4" stop-opacity="0"/>
+      <stop offset="1" stop-color="#bebbb8" stop-opacity="0.102"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-8" y1="0.373" y2="0.997" xlink:href="#linear-gradient-7"/>
+    <linearGradient id="linear-gradient-9" x1="0.5" y1="0.003" x2="0.5" y2="0.983" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#979593" stop-opacity="0.251"/>
+      <stop offset="1" stop-color="#c8c6c4" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-10" x1="0.444" y1="0.003" y2="0.983" xlink:href="#linear-gradient-9"/>
+    <clipPath id="clip-vaultUnlocked">
+      <rect width="48" height="48"/>
+    </clipPath>
+  </defs>
+  <g id="vaultUnlocked" clip-path="url(#clip-vaultUnlocked)">
+    <g id="vault_unlocked" data-name="vault unlocked">
+      <g id="_40_vaultopen-" data-name="40_vaultopen-" transform="translate(2 7)">
+        <rect id="Rectangle-Copy-7" width="44" height="28.115" rx="0.5" transform="translate(0 2.445)" fill="#c8c6c4"/>
+        <rect id="Rectangle-Copy-8" width="44" height="28.115" rx="0.5" transform="translate(0 2.445)" fill="url(#linear-gradient)"/>
+        <path id="Rectangle-Copy-9" d="M2,25H6.89l-.44.88a.623.623,0,0,1-.55.342H2.99a.623.623,0,0,1-.55-.342Z" transform="translate(0.445 5.56)" fill="#8a8886" fill-rule="evenodd"/>
+        <path id="Rectangle-Copy-10" d="M30,25h4.89l-.44.88a.623.623,0,0,1-.55.342H30.99a.623.623,0,0,1-.55-.342Z" transform="translate(6.666 5.56)" fill="#8a8886" fill-rule="evenodd"/>
+        <rect id="Rectangle-Copy-201" width="36.666" height="23.226" transform="translate(2.445 4.89)" fill="#8a8886"/>
+        <path id="Rectangle" d="M29.611,0h3.056V30.56H29.611A.611.611,0,0,1,29,29.949V.611A.611.611,0,0,1,29.611,0Z" transform="translate(6.443)" fill="#e1dfdd" fill-rule="evenodd"/>
+        <path id="Rectangle-Copy-2" d="M27.611,1h1.834V29.115H27.611A.611.611,0,0,1,27,28.5V1.611A.611.611,0,0,1,27.611,1Z" transform="translate(6 0.222)" fill="#e1dfdd" fill-rule="evenodd"/>
+        <path id="Path" d="M32,7h0a1.222,1.222,0,0,1,1.222,1.222v11A1.222,1.222,0,0,1,32,20.446h0Z" transform="translate(7.11 1.557)" fill="#979593" fill-rule="evenodd"/>
+        <path id="Rectangle-Copy-268" d="M32,7h0a1.222,1.222,0,0,1,1.222,1.222v11A1.222,1.222,0,0,1,32,20.446h0Z" transform="translate(7.11 1.557)" fill-rule="evenodd" fill="url(#linear-gradient-2)"/>
+        <path id="Rectangle-Copy-231" d="M2,4H32.56V6.445H4.445Z" transform="translate(0.445 0.89)" fill-rule="evenodd" fill="url(#linear-gradient-3)"/>
+        <path id="Rectangle-Copy-232" d="M2,23.445H32.56V21H4.445Z" transform="translate(0.445 4.67)" fill-rule="evenodd" fill="url(#linear-gradient-4)"/>
+        <path id="Rectangle-Copy-233" d="M2,27.226V4L4.445,6.445V24.781Z" transform="translate(0.445 0.89)" fill-rule="evenodd" fill="url(#linear-gradient-5)"/>
+        <path id="Rectangle-Copy-264" d="M27.611,1h1.834V29.115H27.611A.611.611,0,0,1,27,28.5V1.611A.611.611,0,0,1,27.611,1Z" transform="translate(6 0.222)" fill-rule="evenodd" fill="url(#linear-gradient-6)"/>
+        <path id="Rectangle-Copy-263" d="M27.611,1h1.834V29.115H27.611A.611.611,0,0,1,27,28.5V1.611A.611.611,0,0,1,27.611,1Z" transform="translate(6 0.222)" fill-rule="evenodd" fill="url(#linear-gradient-7)"/>
+        <path id="Rectangle-Copy-262" d="M29.611,0h3.056V30.56H29.611A.623.623,0,0,1,29,29.924V.587A.623.623,0,0,1,29.611,0Z" transform="translate(6.443)" fill-rule="evenodd" fill="url(#linear-gradient-8)"/>
+        <path id="Path-2" data-name="Path" d="M30.611,3h0a.611.611,0,0,1,.611.611V6.056a.611.611,0,0,1-.611.611h0A.611.611,0,0,1,30,6.056V3.611A.611.611,0,0,1,30.611,3Z" transform="translate(6.666 0.667)" fill="#c8c6c4" fill-rule="evenodd"/>
+        <path id="Rectangle-Copy-4" d="M30.611,11h0a.611.611,0,0,1,.611.611v2.445a.611.611,0,0,1-.611.611h0A.611.611,0,0,1,30,14.056V11.611A.611.611,0,0,1,30.611,11Z" transform="translate(6.666 2.446)" fill="#c8c6c4" fill-rule="evenodd"/>
+        <path id="Rectangle-Copy-3" d="M30.611,19h0a.611.611,0,0,1,.611.611v2.445a.611.611,0,0,1-.611.611h0A.611.611,0,0,1,30,22.056V19.611A.611.611,0,0,1,30.611,19Z" transform="translate(6.666 4.226)" fill="#c8c6c4" fill-rule="evenodd"/>
+        <path id="Rectangle-Copy-269" d="M30.611,3h0a.611.611,0,0,1,.611.611V6.056a.611.611,0,0,1-.611.611h0A.611.611,0,0,1,30,6.056V3.611A.611.611,0,0,1,30.611,3Z" transform="translate(6.666 0.667)" fill-rule="evenodd" fill="url(#linear-gradient-9)"/>
+        <path id="Rectangle-Copy-270" d="M30.611,11h0a.611.611,0,0,1,.611.611v2.445a.611.611,0,0,1-.611.611h0A.611.611,0,0,1,30,14.056V11.611A.611.611,0,0,1,30.611,11Z" transform="translate(6.666 2.446)" fill-rule="evenodd" fill="url(#linear-gradient-10)"/>
+        <path id="Rectangle-Copy-271" d="M30.611,19h0a.611.611,0,0,1,.611.611v2.445a.611.611,0,0,1-.611.611h0A.611.611,0,0,1,30,22.056V19.611A.611.611,0,0,1,30.611,19Z" transform="translate(6.666 4.226)" fill-rule="evenodd" fill="url(#linear-gradient-10)"/>
+        <g id="Group" transform="translate(12.221 8.557)">
+          <path id="Path-3" data-name="Path" d="M0,0H8.557l4.89,4.89V18.336H0Z" fill="#fff" fill-rule="evenodd"/>
+          <path id="Path-4" data-name="Path" d="M7,0l4.89,4.89H7Z" transform="translate(1.557)" fill="#edebe9" fill-rule="evenodd"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

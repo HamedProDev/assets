@@ -1,0 +1,201 @@
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 0; }
+.wrap { padding: 1rem 0; font-family: var(--font-sans); }
+input[type=text] { width: 100%; margin-bottom: 16px; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 10px; }
+.card {
+  background: var(--color-background-primary);
+  border: 0.5px solid var(--color-border-tertiary);
+  border-radius: var(--border-radius-lg);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color .15s;
+}
+.card:hover { border-color: var(--color-border-secondary); }
+.card.expanded { border-color: var(--color-border-primary); }
+.card-head { display: flex; align-items: center; gap: 10px; }
+.card-icon { font-size: 18px; color: var(--color-text-secondary); flex-shrink: 0; }
+.card-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); margin: 0; flex: 1; }
+.badge { font-size: 11px; padding: 2px 8px; border-radius: 10px; font-weight: 500; flex-shrink: 0; }
+.b-blue { background: var(--color-background-info); color: var(--color-text-info); }
+.b-green { background: var(--color-background-success); color: var(--color-text-success); }
+.b-amber { background: var(--color-background-warning); color: var(--color-text-warning); }
+.b-red { background: var(--color-background-danger); color: var(--color-text-danger); }
+.b-gray { background: var(--color-background-secondary); color: var(--color-text-secondary); }
+.card-body { display: none; margin-top: 10px; border-top: 0.5px solid var(--color-border-tertiary); padding-top: 10px; }
+.card.expanded .card-body { display: block; }
+.card-desc { font-size: 13px; color: var(--color-text-secondary); line-height: 1.6; margin: 0 0 8px; }
+.code { font-family: var(--font-mono); font-size: 11px; background: var(--color-background-secondary); border-radius: 6px; padding: 8px 10px; color: var(--color-text-primary); white-space: pre; overflow-x: auto; margin: 0; }
+.ask-btn { margin-top: 10px; font-size: 12px; color: var(--color-text-info); background: none; border: none; cursor: pointer; padding: 0; }
+.section-label { font-size: 11px; font-weight: 500; color: var(--color-text-tertiary); letter-spacing: .05em; text-transform: uppercase; margin: 20px 0 8px; }
+.empty { font-size: 14px; color: var(--color-text-secondary); padding: 2rem 0; text-align: center; }
+</style>
+
+<div class="wrap">
+  <h2 class="sr-only">Interactive Git and GitHub glossary — click any term to expand its explanation and example</h2>
+  <input type="text" placeholder="Search terms..." id="search" oninput="filter(this.value)">
+  <div id="list"></div>
+</div>
+
+<script>
+const terms = [
+  {
+    section: "Git internals",
+    items: [
+      { icon: "ti-git-commit", title: "SHA / commit hash", badge: ["core","b-gray"],
+        desc: "A 40-character hexadecimal fingerprint (SHA-1) that uniquely identifies every commit, tree, blob, and tag object in Git. You usually only need the first 7 characters.",
+        code: "git log --oneline\n# a3f8c2d feat: add login\n# 91bc004 fix: null pointer\ngit show a3f8c2d" },
+      { icon: "ti-database", title: "Working directory", badge: ["local","b-gray"],
+        desc: "The actual files on your disk that you edit. Changes here are 'unstaged' until you run git add.",
+        code: "git status\n# Changes not staged for commit:\n#   modified: src/app.js" },
+      { icon: "ti-layers-subtract", title: "Staging area (index)", badge: ["local","b-blue"],
+        desc: "A buffer between your working directory and the repo. Only staged changes go into the next commit. Lets you craft precise commits even if multiple files changed.",
+        code: "git add src/app.js      # stage one file\ngit add -p              # interactively pick hunks\ngit diff --staged       # see what's staged" },
+      { icon: "ti-box", title: "Blob, tree, commit objects", badge: ["internals","b-gray"],
+        desc: "Git's three core object types. A blob stores file content. A tree stores a directory listing. A commit points to a tree plus metadata (author, message, parent commit).",
+        code: "git cat-file -t a3f8c2d   # shows: commit\ngit cat-file -p a3f8c2d   # shows commit object" },
+      { icon: "ti-git-branch", title: "HEAD", badge: ["pointer","b-amber"],
+        desc: "A special pointer that tracks where you currently are in the repo. Usually points to the tip of the current branch. 'Detached HEAD' means HEAD points directly to a commit, not a branch.",
+        code: "cat .git/HEAD\n# ref: refs/heads/main\n\ngit checkout a3f8c2d   # detached HEAD state" },
+      { icon: "ti-refresh", title: "Upstream / downstream", badge: ["remote","b-gray"],
+        desc: "Upstream is where you pull from (usually origin/main). Downstream is any branch or fork that tracks yours. Setting upstream links a local branch to its remote counterpart.",
+        code: "git push -u origin feat/login\n# -u sets upstream so future git push/pull\n# work without specifying the remote" },
+    ]
+  },
+  {
+    section: "Branching & history",
+    items: [
+      { icon: "ti-git-merge", title: "Fast-forward merge", badge: ["merge","b-green"],
+        desc: "When the target branch has no new commits since the feature branch diverged, Git simply moves the pointer forward — no merge commit needed. Clean and linear.",
+        code: "git checkout main\ngit merge feat/login  # fast-forward if possible\ngit merge --no-ff feat/login  # force merge commit" },
+      { icon: "ti-git-merge", title: "3-way merge", badge: ["merge","b-blue"],
+        desc: "When both branches have diverged, Git finds the common ancestor commit and combines changes from both sides. Creates a merge commit with two parents.",
+        code: "# main: A-B-C\n# feat:   B-D-E\n# result: A-B-C-F  (F = merge commit)\n#              \\ /\n#               D-E" },
+      { icon: "ti-git-branch-deleted", title: "Merge conflict", badge: ["conflict","b-red"],
+        desc: "Happens when two branches changed the same lines differently. Git marks the file with conflict markers and waits for you to resolve manually.",
+        code: "<<<<<<< HEAD\nconst port = 3000;\n=======\nconst port = 8080;\n>>>>>>> feat/config\n\n# Edit the file, then:\ngit add file.js && git commit" },
+      { icon: "ti-history", title: "Detached HEAD", badge: ["state","b-amber"],
+        desc: "You're no longer on a branch — HEAD points directly to a commit SHA. Safe to explore, but any commits you make here won't be on any branch and will be lost if you switch away.",
+        code: "git checkout a3f8c2d    # enters detached HEAD\ngit checkout -b rescue  # save work on a new branch" },
+      { icon: "ti-refresh-dot", title: "Rebase vs merge", badge: ["history","b-blue"],
+        desc: "Merge preserves full history with a merge commit. Rebase replays your commits on top of another branch, rewriting SHAs for a clean linear history. Never rebase shared branches.",
+        code: "# merge (preserves topology)\ngit merge main\n\n# rebase (linear, rewrites history)\ngit rebase main\ngit rebase -i HEAD~3   # interactive: squash/edit" },
+      { icon: "ti-cut", title: "Cherry-pick", badge: ["selective","b-teal"],
+        desc: "Apply a specific commit from any branch onto your current branch. Creates a new commit with the same changes but a new SHA. Great for backporting fixes.",
+        code: "git cherry-pick a3f8c2d\ngit cherry-pick a3f8c2d..91bc004  # range" },
+    ]
+  },
+  {
+    section: "Undoing & recovering",
+    items: [
+      { icon: "ti-rotate-clockwise", title: "git reset", badge: ["undo","b-red"],
+        desc: "Moves the branch pointer backward. --soft keeps staged changes, --mixed (default) unstages them, --hard discards everything. Dangerous on shared branches.",
+        code: "git reset --soft HEAD~1   # undo commit, keep staged\ngit reset HEAD~1          # undo commit, unstage\ngit reset --hard HEAD~1   # undo commit + changes gone" },
+      { icon: "ti-file-minus", title: "git revert", badge: ["safe undo","b-green"],
+        desc: "Creates a new commit that undoes a previous commit's changes. History is preserved — safe to use on shared/public branches.",
+        code: "git revert HEAD         # undo last commit safely\ngit revert a3f8c2d      # undo specific commit" },
+      { icon: "ti-restore", title: "git restore", badge: ["discard","b-gray"],
+        desc: "Discard working directory changes or unstage files. Replaced the confusing overloaded uses of git checkout for files.",
+        code: "git restore file.js             # discard changes\ngit restore --staged file.js    # unstage\ngit restore --source=HEAD~2 file.js  # from older commit" },
+      { icon: "ti-list-search", title: "git reflog", badge: ["recovery","b-amber"],
+        desc: "A log of every place HEAD has pointed to, including resets and checkouts. Your safety net for recovering 'lost' commits.",
+        code: "git reflog\n# HEAD@{0}: reset: moving to HEAD~1\n# HEAD@{1}: commit: feat: add login\ngit checkout HEAD@{1}  # recover it" },
+    ]
+  },
+  {
+    section: "Remote & collaboration",
+    items: [
+      { icon: "ti-cloud", title: "origin", badge: ["remote","b-blue"],
+        desc: "The default name Git gives to the remote repo you cloned from. Just an alias for a URL — you can rename it or have multiple remotes.",
+        code: "git remote -v\n# origin  git@github.com:you/repo.git\ngit remote add upstream git@github.com:org/repo.git" },
+      { icon: "ti-cloud-download", title: "git fetch", badge: ["remote","b-gray"],
+        desc: "Downloads new commits and branches from a remote but doesn't change your working directory or local branches. Safe to run anytime.",
+        code: "git fetch origin          # fetch all branches\ngit fetch origin main     # fetch specific branch\ngit diff HEAD origin/main # see what's new" },
+      { icon: "ti-cloud-upload", title: "git push --force-with-lease", badge: ["safe force","b-amber"],
+        desc: "Force-pushes your branch, but only if the remote hasn't changed since your last fetch. Safer than --force, which blindly overwrites even if a teammate pushed.",
+        code: "git push --force-with-lease\n# fails if someone pushed since your last fetch\n# git push -f  ← dangerous, avoid on shared branches" },
+      { icon: "ti-copy", title: "git clone vs fork", badge: ["setup","b-gray"],
+        desc: "Clone creates a local copy of a repo. A fork is a server-side copy of a repo on your GitHub account. You fork to contribute to repos you don't own, then clone your fork.",
+        code: "# Fork on GitHub, then:\ngit clone git@github.com:you/forked-repo.git\ngit remote add upstream git@github.com:org/repo.git" },
+      { icon: "ti-lock", title: "SSH vs HTTPS", badge: ["auth","b-gray"],
+        desc: "Two ways to authenticate with GitHub. HTTPS uses a personal access token (PAT). SSH uses a key pair — faster for daily use and no token expiry.",
+        code: "# HTTPS (uses PAT)\ngit clone https://github.com/user/repo.git\n\n# SSH (uses key pair)\ngit clone git@github.com:user/repo.git\nssh-keygen -t ed25519 -C 'you@email.com'" },
+    ]
+  },
+  {
+    section: "GitHub-specific",
+    items: [
+      { icon: "ti-shield-check", title: "CODEOWNERS", badge: ["review","b-blue"],
+        desc: "A file that auto-assigns reviewers to PRs based on which files changed. Ensures the right people always review changes to critical files.",
+        code: "# .github/CODEOWNERS\n*.js     @frontend-team\napi/     @backend-team\n*.yml    @devops" },
+      { icon: "ti-player-play", title: "Actions: workflow triggers", badge: ["CI/CD","b-green"],
+        desc: "Events that kick off a GitHub Actions workflow. Common ones: push, pull_request, schedule (cron), workflow_dispatch (manual), and release.",
+        code: "on:\n  push:\n    branches: [main]\n  pull_request:\n  schedule:\n    - cron: '0 8 * * 1'  # every Monday 8am\n  workflow_dispatch:  # manual button in UI" },
+      { icon: "ti-tag", title: "Releases", badge: ["versioning","b-green"],
+        desc: "A GitHub release packages a tag with release notes, changelogs, and downloadable binary assets. Usually created from an annotated tag.",
+        code: "git tag -a v1.2.0 -m 'Release notes here'\ngit push origin v1.2.0\n# Then create release on GitHub from this tag" },
+      { icon: "ti-circle-dot", title: "Milestones", badge: ["project","b-gray"],
+        desc: "Group issues and PRs under a target (like a version or sprint). Shows progress as a percentage of closed items. Helps track work toward a goal.",
+        code: "# Created in GitHub UI\n# Assign issues: Issue > Milestone > v2.0\n# Track: github.com/user/repo/milestone/1" },
+      { icon: "ti-webhook", title: "Webhooks", badge: ["integration","b-blue"],
+        desc: "HTTP POST notifications sent to your URL whenever events happen in a repo (push, PR, release, etc). Foundation for custom integrations and bots.",
+        code: "# Settings > Webhooks > Add webhook\n# Payload URL: https://your-server.com/hook\n# Content type: application/json\n# Events: push, pull_request" },
+      { icon: "ti-key", title: "Personal access token (PAT)", badge: ["auth","b-amber"],
+        desc: "A token used instead of a password for HTTPS Git operations and the GitHub API. Fine-grained PATs let you restrict scope to specific repos and permissions.",
+        code: "# GitHub > Settings > Developer settings > PATs\nexport GITHUB_TOKEN=ghp_xxxxxxxxxxxx\n\n# Use in API\ncurl -H 'Authorization: Bearer $GITHUB_TOKEN' \\\n  https://api.github.com/user/repos" },
+    ]
+  }
+];
+
+function render(filter) {
+  const list = document.getElementById('list');
+  list.innerHTML = '';
+  const q = (filter || '').toLowerCase();
+  let anyShown = false;
+  terms.forEach(section => {
+    const filtered = section.items.filter(item =>
+      !q || item.title.toLowerCase().includes(q) || item.desc.toLowerCase().includes(q)
+    );
+    if (!filtered.length) return;
+    anyShown = true;
+    const label = document.createElement('div');
+    label.className = 'section-label';
+    label.textContent = section.section;
+    list.appendChild(label);
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    filtered.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      const badges = Array.isArray(item.badge)
+        ? item.badge.map((b,i) => i===0 ? `<span class="badge ${item.badge[1]}">${b}</span>` : '').join('')
+        : '';
+      card.innerHTML = `
+        <div class="card-head">
+          <i class="ti ${item.icon} card-icon" aria-hidden="true"></i>
+          <p class="card-title">${item.title}</p>
+          ${badges}
+        </div>
+        <div class="card-body">
+          <p class="card-desc">${item.desc}</p>
+          ${item.code ? `<pre class="code">${item.code}</pre>` : ''}
+          <button class="ask-btn" onclick="sendPrompt('Explain more about ${item.title} in Git/GitHub')">Ask more about this ↗</button>
+        </div>`;
+      card.addEventListener('click', (e) => {
+        if (e.target.classList.contains('ask-btn')) return;
+        card.classList.toggle('expanded');
+      });
+      grid.appendChild(card);
+    });
+    list.appendChild(grid);
+  });
+  if (!anyShown) {
+    list.innerHTML = '<p class="empty">No terms match your search.</p>';
+  }
+}
+
+function filter(q) { render(q); }
+render();
+</script>
